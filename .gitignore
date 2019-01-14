@@ -1,3 +1,6 @@
+# localsetting keys, passwords etc.
+*localsettings*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
