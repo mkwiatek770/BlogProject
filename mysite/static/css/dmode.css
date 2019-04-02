@@ -1,0 +1,172 @@
+/* Day mode */
+
+
+
+body {
+    background-color: #eee;
+}
+
+#upper-nav {
+    background-color: #36363b;
+    color: #eee;
+}
+
+
+#upper-nav a {
+    color: #eee;
+}
+
+
+
+
+#navbar {
+    background-color: #36363b;
+    color: #eee;
+    border-bottom: 5px solid #D6CB11;
+}
+
+
+
+#navbar a {
+    color: #eee;
+}
+
+
+.fas.fa-bars {
+    color: white;
+}
+
+
+#mainmenu a:hover {
+    color: #D6CB11;
+    transform: scale(1.1);
+    transition: 0.5s;
+
+}
+
+#upper-nav button.btn,
+#mainmenu button {
+    border: 1px solid #D6CB11;
+    color: #eee;
+}
+
+
+#upper-nav button.btn:hover,
+#mainmenu button:hover {
+    background-color: #D6CB11;
+    color: black;
+}
+
+.card-img-overlay {
+    border-bottom: 2px solid #D6CB11;
+}
+
+.card-img-overlay h2 {
+    color: #ccc;
+}
+
+
+.card-img-overlay>div#main-card-header,
+.card-img-overlay>div>div:nth-child(3)>div>a {
+    transition: 0.5s;
+}
+
+.card-img-overlay:hover {
+    cursor: pointer;
+}
+
+
+.card-img-overlay a:hover {
+    text-decoration: none;
+}
+
+
+.card-img-overlay:hover>div#main-card-header {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+
+
+div.card-img-overlay:hover>div>div:nth-child(3)>div>a {
+    color: black !important;
+    background-color: #D6CB11 !important;
+
+
+}
+
+
+
+.card>img:hover {
+    cursor: pointer;
+}
+
+.img-card-top:hover+div>p {
+    background-color: #D6CB11 !important;
+}
+
+.card>img+div>div.row>div.col>a {
+    transition: 0.5s;
+}
+
+.card h3 {
+    color: black;
+}
+
+.card>img {
+    transition: 0.5s;
+}
+
+.card h3:hover {
+    color: #D6CB11 !important;
+    text-decoration: none;
+}
+
+card a:hover {
+    text-decoration: none;
+}
+
+.card>img:hover {
+    filter: grayscale(60%);
+}
+
+.card>img:hover+div>div.row>div.col>a {
+    background-color: #D6CB11 !important;
+    color: black !important;
+}
+
+.tags {
+    background-color: gray;
+    color: white;
+    transition: 0.2s;
+}
+
+.tags:hover {
+    background-color: #D6CB11;
+    color: black
+}
+
+#accordion a:hover {
+    color: #D6CB11 !important;
+    text-decoration: none;
+
+}
+
+#categories a::before {
+    content: "\A";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #b83b3b;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#top-articles a::before {
+    content: "\A";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #b83b3b;
+    display: inline-block;
+    margin-right: 10px;
+}

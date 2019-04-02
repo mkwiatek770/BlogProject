@@ -1,1 +1,44 @@
+* {
+    box-sizing: border-box;
+}
 
+body {
+    font-family: 'Source Sans Pro', sans-serif !important;
+
+}
+
+.article-content {
+    line-height: 1.9em;
+    font-size: 1.5em;
+}
+
+img {
+    height: 100%;
+}
+
+.card {
+    border: 0px;
+}
+
+
+
+
+@media (max-width: 978px) and (min-width: 768px) {
+    .container {
+        max-width: 978px;
+    }
+
+}
+
+.active {
+    color: #D6CB11;
+}
+
+#main-card-header {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* #pagination {
+    width: 90%;
+    margin-right: 10%;
+} */
