@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+{% load static %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+{% block title %}
+    {% if not form.instance.pk %}
+        Create Article
+    {% else %}
+        Update Article
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if not form.instance.pk %}
+        <h1>Create Article</h1>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="">Title</label>
+                {% render_field form1.title class="form-control" placeholder="Slug will be created on top of title" %}
+            </div>
+            <div class="form-group">
+                <label for="file">Thumbnail</label>
+                {% render_field form1.thumbnail class="form-control-file" %}
+                <small class="form-text text-muted" id="fileHelp">900x400px</small>
+            </div>
+            {% render_field form1.categories %}
+            {{ form2.as_p }}
+            {{ form2.media }}        
+
+            <input type="submit" class="btn btn-primary" value="Create Article">
+        </form>
+
+
+    {% else %}
+        {% if not article.published_date %}
+            <a href="{% url 'article_publish' pk=article.pk %}">Publish</a>
+        {% else %}
+            <a href="{% url 'article_unpublish' pk=article.pk %}">Unpublish</a>
+        {% endif %}
+
+        <a href="{% url 'article_delete' pk=article.pk %}" class="text-danger">Delete</a>
+
+        {% comment %} będzie opcja opublikować artykuł, albo usunąć publikację {% endcomment %}
+        <form method="POST" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+            <div class="form-group">
+                <label for="">Title</label>
+                {% render_field form1.title class="form-control" placeholder="Slug will be created on top of title" %}
+            </div>
+            <div class="form-group">
+                <label for="file">Thumbnail</label>
+                {% render_field form1.thumbnail class="form-control-file" %}
+                <small class="form-text text-muted" id="fileHelp">900x400px</small>
+            </div>
+            {% render_field form1.categories %}
+            {{ form2.as_p }}
+            {{ form2.media }}        
+
+            <input type="submit" class="btn btn-primary" value="Update Article">
+        </form>
+
+        {% comment %} Komentarze z możliwośćią zatwierdzania/odtwierdzania {% endcomment %}
+    {% endif %}
+
+</div>
+<script>
+CKEDITOR.on('instanceReady',
+   function( evt )
+   {
+     var editor = evt.editor;
+     editor.container.$.parentElement.style.width = "1110px";
+     console.log(editor.container.$);
+     
+   });
+</script>
+
+{% endblock %}

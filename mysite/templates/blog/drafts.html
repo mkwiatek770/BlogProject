@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    4Code - Drafts
+{% endblock %}
+
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-lg-9 mx-auto mb-5 mt-5 d-none d-lg-block" >
+                    <div class="card text-white" style="padding:0px;">
+                        
+                        <img class="img-card-top img-fluid"  src="/media/{{ article.thumbnail }}" style="height:400px;" alt="">
+                        
+                        <div class="card-img-overlay d-flex" style="padding: 0;">
+                            <div class="align-self-end w-100" style="background-color: rgba(0, 0, 0, 0.6); ">
+                                <div class="row mb-2">
+                                    <div class="col-4 text-muted" style="margin-left: 20px;">Michał Kwiatek</div>
+                                    <div class="col-4 text-right text-muted ml-auto mr-3">Last modified: {{ article.modified_date }}</div>
+                                </div>
+                                <a href="{% url 'article_edit' pk=article.pk %}">
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <h2 class="card-title" style="padding-left: 20px;">{{ article.title }}</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="row pb-2">
+                                    <div class="col" style="margin-left: 20px;">
+                                        {% for category in article.categories.all %}
+                                            <a href="/?category={{ category.slug }}" class="bg-dark text-white p-2 mr-3">{{ category.tag_name }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    <div class="col-md-9 mx-auto col-sm-12  d-lg-none mb-5 mt-5">
+                        <div class="card">
+                            <img src="/media/{{ article.thumbnail }}" alt="" class="img-card-top img-fluid" style="height:200px">
+                            <div class="card-header" style="min-height: 130px;">
+                                <h3 class="card-title" style="height: 40%">{{ article.title }}</h3>
+                                <p>
+                                    <div class="row mb-2">
+                                        <div class="col-5">
+                                        <small class="font-weight-bold">Michał Kwiatek</small> 
+                                        </div>
+                                        <div class="col-5 ml-auto text-right">
+                                        <small>{{ article.published_date|date:"d.m.Y" }}</small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            {% for category in article.categories.all %}
+                                                <a href="/?category={{ category.slug }}" class="bg-dark text-white p-1 mr-1 my-1 d-inline-block"><small>{{ category.tag_name }}</small></a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="card-body" style="height: 160px;">
+                                <p>{{ article.content|safe|truncatewords:20 }}</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                
+
+                <hr>
+            {% endfor %}
+        
+        </div>
+    
+    </div>
+
+
+
+
+
+
+{% comment %} 
+    <h1>Drafts</h1>
+    {% for article in articles %}
+        <div class="article_block">
+            <a href="{% url 'article_edit' pk=article.pk %}"><img src="{{ article.image_url }}"></a>
+            <a href="{% url 'article_edit' pk=article.pk %}"><h2>{{ article.title }}</h2></a>
+            <p>Last modified: {{ article.modified_date|date:"N, j, Y  H:m" }}</p>
+            <p>{{ article.content|truncatewords:20|safe }}</p>
+            <p>Categories: 
+            {% for category in article.categories.all %}
+                <span style="margin-right:5px;">{{ category }}</span>
+            {% endfor %}
+            </p>
+             
+        </div>
+    {% endfor %}
+
+    {% comment %} Pagination {% endcomment %}
+    
+{% endblock %}

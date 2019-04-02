@@ -1,96 +1,59 @@
 {% block header %}
-<header>
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark justify-content-between">
-    <a class="navbar-brand" href="#">4Code</a>
-    <ul class="navbar-nav  ml-auto mr-5 d-none d-lg-flex">
-        {% if user.is_authenticated %}
-        <li class="nav-item">
-            <a href="" class="nav-link">Logged as {{ request.user }}</a>
-        </li>
-        <li class="nav-item">
-            <a href="" class="nav-link"> Logout </a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-            <a href="" class="nav-link"> Sign Up </a>
-        </li>
-        <li class="nav-item">
-            <a href="" class="nav-link"> Login </a>
-        </li>
-        {% endif %}
-    </ul>
-     <form class="form-inline my-2 my-lg-0 mr-5 ml-3 d-none d-lg-flex">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  <div class="navbar-nav flex-row mr-1">
-    <a class="nav-item nav-link sun" href="#"><i class="fas fa-sun"></i></a>
-    <a class="nav-item nav-link moon" href="#"><i class="fas fa-moon active"></i></a>
-  </div>
-</nav>
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg" id="navbar" >
+<nav class="navbar navbar-expand-sm justify-content-between" id="upper-nav">
+        <a class="navbar-brand font-weight-bold" href="{% url 'home' %}">4Code</a>
+        <form class="form-inline ml-auto mr-4 d-none d-lg-flex">
+            <div class="form-group">
+                <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" action="{% url 'home' %}" aria-label="Search" method="GET">
+                <button class="btn " type="submit">Search</button>
+            </div>
+        </form>
+        <div class="navbar-nav flex-row mr-1"> 
+            <a class="nav-item nav-link sun " href="#"><i class="fas fa-sun active"></i></a>
+            <a class="nav-item nav-link moon" href="#"><i class="fas fa-moon"></i></a>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg sticky-top" id="navbar" >
+        <!-- Hamburger menu -->
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+            data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false"
+            aria-label="Navbar toggleer">
+            <span class="navbar-toggler-icon">
+                <i class="fas fa-bars"></i>
+            </span>
+        </button>
 
-            
+        <div class="collapse navbar-collapse" id="mainmenu">
 
-            <!-- Hamburger menu -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false"
-                aria-label="Navbar toggleer">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <ul class="navbar-nav ml-auto mr-auto">
 
+                <li class="nav-item mr-4">
+                    <a class="nav-link active" href="{% url 'home' %}">HOME </a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a href="{% url 'random_article' %}" class="nav-link active"> RANDOM ARTICLE </a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a href="{% url 'about' %}" class="nav-link active"> ABOUT </a>
+                </li>
+                <li class="nav-item dropdown mr-4">
+                    <a class="nav-link dropdown-toggle active" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true"> CATEGORIES </a>
 
-            <div class="collapse navbar-collapse" id="mainmenu">
+                    <div class="dropdown-menu" aria-labelledby="submenu">
 
-                <ul class="navbar-nav ml-auto mr-auto">
+                        <a class="dropdown-item" href="#"> Python </a>
+                        <a class="dropdown-item" href="#"> Javascript </a>
+                        <a class="dropdown-item" href="#"> Data Science </a>
+                    </div>
 
-                    <li class="nav-item mr-4">
-                        <a class="nav-link active" href="#">HOME </a>
-                    </li>
-                    <li class="nav-item mr-4">
-                        <a href="" class="nav-link active"> RANDOM ARTICLE </a>
-                    </li>
-                    <li class="nav-item mr-4">
-                        <a href="" class="nav-link active"> ABOUT </a>
-                    </li>
-                    <li class="nav-item dropdown mr-4">
-                        <a class="nav-link dropdown-toggle active" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true"> CATEGORIES </a>
+                </li>
 
-                        <div class="dropdown-menu" aria-labelledby="submenu">
-
-                            <a class="dropdown-item" href="#"> Python </a>
-                            <a class="dropdown-item" href="#"> Javascript </a>
-                            <a class="dropdown-item" href="#"> Data Science </a>
-                        </div>
-
-                    </li>
-
-                </ul>
-                <ul class="navbar-nav ml-auto d-flex d-lg-none">
-                    {% if user.is_authenticated %}
-                    <li class="nav-item mr-3">
-                        <a href="" class="nav-link">Logged as {{ request.user }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link"> Logout </a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a href="" class="nav-link"> Sign Up </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link"> Login </a>
-                    </li>
-                    {% endif %}
-                </ul>
-                <form class="form-inline  d-flex d-lg-none">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
-    </form>
+            </ul>
+            <form class="form-inline  d-flex d-lg-none"  method="GET" action="{% url 'home' %}">
+                <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" aria-label="Search">
+                <button class="btn my-2 my-sm-0" type="submit">Search</button>
+            </form>
 
             </div>
         </nav>
-
-</header>
 {% endblock %}
 

@@ -1,0 +1,308 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+    4Code - Blog for programmers
+{% endblock %}
+
+{% block content %}
+        
+        <div class="container mt-5">
+            <div class="row">
+                <div id="articles" class="col-12 col-lg-9">
+                    {% if search %}
+                    <h1 class="">Search results for:  <span class="font-weight-bold">{{ search }}</span></h1>
+                    <hr class="mb-5">
+                    {% endif %}
+                    <!-- if width >= lg --> 
+                    
+                    <div class="row d-none d-lg-block">
+                        
+                    {% for article in articles %}
+                        {% if forloop.first %}
+                        <div class="row mb-5">
+                            <div class="col" >
+                                <div class="card text-white" style="padding:0px;">
+                                    
+                                    <img class="img-card-top img-fluid"  src="/media/{{ article.thumbnail }}" style="height:400px;" alt="">
+                                   
+                                    <div class="card-img-overlay d-flex" style="padding: 0;">
+                                        <div class="align-self-end w-100"  id="main-card-header">
+                                            <div class="row mb-2">
+                                                <div class="col-4 text-muted" style="margin-left: 20px;">Michał Kwiatek</div>
+                                                <div class="col-4 text-right text-muted ml-auto mr-3">{{ article.published_date|date:"d.m.Y" }}</div>
+                                            </div>
+                                            <a href="{% url 'article' slug=article.slug %}">
+                                                <div class="row mb-2">
+                                                    <div class="col">
+                                                        <h2 class="card-title" style="padding-left: 20px;">{{ article.title }}</h3>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="row pb-2">
+                                                <div class="col" style="margin-left: 20px;">
+                                                    {% for category in article.categories.all %}
+                                                        <a href="/?category={{ category.slug }}" class="bg-dark text-white p-2 mr-3">{{ category.tag_name }}</a>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        {% elif forloop.counter|divisibleby:2 %}
+                        <div class="row mb-5 mt-5">
+                            <div class="col-5 mr-auto">
+                                <div class="card card-main">
+                                    <img class="img-card-top img-fluid" src="media/{{ article.thumbnail }}" alt="" style="height:254px;">
+                                    <div class="card-header" style="min-height: 160px;">
+                                        <a href="{% url 'article' slug=article.slug %}" style="text-decoration:none;">
+                                            <h3 class="card-title" style="height: 40%">{{ article.title }}</h3>
+                                        </a>
+                                        <p>
+                                            <div class="row mb-2">
+                                                <div class="col-5">
+                                                <small class="font-weight-bold">Michał Kwiatek</small> 
+                                                </div>
+                                                <div class="col-5 ml-auto text-right">
+                                                <small>{{ article.published_date|date:"d.m.Y" }}</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    {% for category in article.categories.all %}
+                                                        <a href="/?category={{ category.slug }}" style="text-decoration:none" class="tags p-1 mr-1 my-1 d-inline-block"><small>{{ category.tag_name }}</small></a>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                    <div class="card-body" style="height: 160px;">
+                                        <p>{{ article.content|safe|truncatechars:100 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                                {% if forloop.last %}
+                                </div>
+                                <hr>
+                                {% endif %}
+                            {% else %}
+                            <div class="col-5 ml-auto">
+                                <div class="card card-main">
+                                    <img class="img-card-top img-fluid" src="media/{{ article.thumbnail }}" alt="" style="height:254px;">
+                                    <div class="card-header" style="min-height: 160px;">
+                                        <a href="{% url 'article' slug=article.slug %}" style="text-decoration:none;">
+                                            <h3 class="card-title" style="height: 40%">{{ article.title }}</h3>
+                                        </a>
+                                        <p>
+                                            <div class="row mb-2">
+                                                <div class="col-5">
+                                                <small class="font-weight-bold">Michał Kwiatek</small> 
+                                                </div>
+                                                <div class="col-5 ml-auto text-right">
+                                                <small>{{ article.published_date|date:"d.m.Y" }}</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    {% for category in article.categories.all %}
+                                                        <a href="/?category={{ category.slug }}" style="text-decoration:none" class="tags p-1 mr-1 my-1 d-inline-block"><small>{{ category.tag_name }}</small></a>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                    <div class="card-body" style="height: 160px;">
+                                        <p>{{ article.content|safe|truncatechars:100 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- if width < lg -->
+                    
+                    <div class="d-block d-lg-none">
+                        {% for article in articles %}
+
+                        {% if not forloop.counter|divisibleby:2 %}
+                        <div class="row  mb-5 mt-5">
+                            <div class="col-xs-12 col-md-5 mr-auto mb-5">
+                                <div class="card card-main">
+                                    <img src="media/{{ article.thumbnail }}" alt="" class="img-card-top img-fluid" style="height:200px">
+                                    <div class="card-header" style="min-height: 130px;">
+                                        <h3 class="card-title" style="height: 40%">{{ article.title }}</h3>
+                                        <p>
+                                            <div class="row mb-2">
+                                                <div class="col-5">
+                                                <small class="font-weight-bold">Michał Kwiatek</small> 
+                                                </div>
+                                                <div class="col-5 ml-auto text-right">
+                                                <small>{{ article.published_date|date:"d.m.Y" }}</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                   {% for category in article.categories.all %}
+                                                        <a href="/?category={{ category.slug }}" style="text-decoration:none" class="tags p-1 mr-1 my-1 d-inline-block"><small>{{ category.tag_name }}</small></a>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                    <div class="card-body" style="height: 160px;">
+                                        <p>{{ article.content|safe|truncatewords:20 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if forloop.last %}
+                            </div>
+                            {% endif %}
+                        {% else %}
+                            <div class="col-xs-12 col-md-5 ml-auto">
+                                <div class="card card-main">
+                                    <img src="media/{{ article.thumbnail }}" alt="" class="img-card-top img-fluid" style="height:200px">
+                                    <div class="card-header" style="min-height: 130px;">
+                                        <h3 class="card-title" style="height: 40%">{{ article.title }}</h3>
+                                        <p>
+                                            <div class="row mb-2">
+                                                <div class="col-5">
+                                                <small class="font-weight-bold">Michał Kwiatek</small> 
+                                                </div>
+                                                <div class="col-5 ml-auto text-right">
+                                                <small>{{ article.published_date|date:"d.m.Y" }}</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    {% for category in article.categories.all %}
+                                                        <a href="/?category={{ category.slug }}" style="text-decoration:none" class="tags p-1 mr-1 my-1 d-inline-block"><small>{{ category.tag_name }}</small></a>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                    <div class="card-body" style="height: 160px;">
+                                        <p>{{ article.content|safe|truncatewords:20 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>  
+                        {% endif %}
+                    {% endfor %}
+
+                                        
+                    
+                    </div>
+
+
+                {% if is_paginated %}
+            <nav id="pagination">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="/?page={{ page_obj.previous_page_number }}">Previous</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link " href="">Previous</a>
+                        </li>
+                    {% endif %}
+
+                    {% for num in paginator.page_range %}
+                        {% if num == page_obj.number %}
+                        <li class="page-item active bg-primary">
+                            <a class="page-link " href="">{{ num }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link " href="/?page={{ num }}">{{ num }}</a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link " href="/?page={{ page_obj.next_page_number }}">Next</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link " href="">Next</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            
+            {% endif %}
+
+
+                    
+                </div>
+
+            
+                    
+                
+                <!-- NAVBAR -->
+
+                <aside id="sidebar" class="col-12 col-lg-3 ">
+                    <div id="accordion" class="mb-5">
+                        <div class="card">
+                            <a href="#categories" data-parent="#accordion" data-toggle="collapse">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 >Popular Categories</h5>
+                                </div>
+                            </a>
+                            
+                            <div id="categories" class="card-body collapse show">
+                                <ul class="list-group">
+                                    {% for category in t_counts %}
+                                        <a href="/?category={{ category.0.slug }}" class="list-group-item">{{ category.0.tag_name }}</a>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="accordion">
+                        <div class="card">
+                            <a href="#top-articles" data-parent="#accordion" data-toggle="collapse">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 >Top Articles</h5>
+                                </div>
+                            </a>
+                            
+                            <div id="top-articles" class="card-body collapse show">
+                                <ul class="list-group">
+                                    {% for article in popular_articles %}
+                                        <a href="{% url 'article' slug=article.slug %}" class="list-group-item">{{ article.title }}</a>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </aside>
+            
+            </div>
+        
+                
+            
+        
+        </div>
+    
+    
+
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/home.js' %}"></script>
+{% endblock %}

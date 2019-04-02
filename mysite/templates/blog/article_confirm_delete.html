@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Article - Confirm Delete</title>
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h2>Are you sure you want to delete this article ?</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="submit" class="text-danger" value="Yes I'm">
+        </form>
+        <a class="alert-warning" href="{% url 'article_edit' pk=article.pk %}">No, go back to edit section!</a>
+    </div>
+{% endblock %}
